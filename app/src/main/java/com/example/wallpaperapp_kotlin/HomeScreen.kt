@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,56 +25,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Person
 
 @Composable
 fun HomeScreen () {
 
 }
 
-@Composable
-fun ShowBottomNav () {
-
-    BottomAppBar(
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
-        contentColor = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(0.dp)
-    ) {
-        Row ( modifier = Modifier.padding(10.dp).fillMaxWidth().fillMaxHeight(), horizontalArrangement = Arrangement.SpaceEvenly){
-            Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                IconButton(onClick = {}, modifier = Modifier.height(40.dp)) {
-                    Icon(painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                        contentDescription = null)
-                }
-                Text(
-                    text = "Home",
-                    fontSize = 12.sp
-                )
-            }
-
-            Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                IconButton(onClick = {},modifier = Modifier.height(40.dp)) {
-                    Icon(painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                        contentDescription = null)
-                }
-                Text(
-                    text = "Likes",
-                    fontSize = 12.sp
-                )
-            }
-            Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                IconButton(onClick = {},modifier = Modifier.height(40.dp)) {
-                    Icon(painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                        contentDescription = null)
-                }
-                Text(
-                    text = "Profile",
-                    fontSize = 12.sp
-                )
-            }
-        }
-
-    }
-}
 
 @Composable
 fun BottomNav () {
@@ -92,8 +51,7 @@ fun BottomNav () {
                 Row ( modifier = Modifier.padding(10.dp).fillMaxWidth().fillMaxHeight(), horizontalArrangement = Arrangement.SpaceEvenly){
                     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
                         IconButton(onClick = {navController.navigate(Home.route)}, modifier = Modifier.height(38.dp)) {
-                            Icon(painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                                contentDescription = null)
+                            Icon(imageVector = Icons.Filled.Home, contentDescription = "Home")
                         }
                         Text(
                             text = "Home",
@@ -103,8 +61,7 @@ fun BottomNav () {
 
                     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
                         IconButton(onClick = {navController.navigate(Likes.route)},modifier = Modifier.height(38.dp)) {
-                            Icon(painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                                contentDescription = null)
+                            Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Likes")
                         }
                         Text(
                             text = "Likes",
@@ -113,8 +70,7 @@ fun BottomNav () {
                     }
                     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
                         IconButton(onClick = {navController.navigate(Profile.route)},modifier = Modifier.height(38.dp)) {
-                            Icon(painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                                contentDescription = null)
+                            Icon(imageVector = Icons.Filled.Person, contentDescription = "Profile")
                         }
                         Text(
                             text = "Profile",
@@ -138,7 +94,7 @@ fun BottomNav () {
                 LikesScreen(navController = navController)
             }
             composable(Profile.route){
-                ProfileScreen(navController = navController)
+                ProfileScreen()
             }
         }
     }

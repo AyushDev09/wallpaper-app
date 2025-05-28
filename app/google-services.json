@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "918110293807",
+    "project_id": "wallpaperappkotlin-9e7bf",
+    "storage_bucket": "wallpaperappkotlin-9e7bf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918110293807:android:5f20e044dd3d0e0ae85bda",
+        "android_client_info": {
+          "package_name": "com.example.wallpaperapp_kotlin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8vff381R9jNtQtEZm0qhxVAa72eUeR-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

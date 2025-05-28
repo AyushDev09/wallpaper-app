@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun ProfileScreen () {
+fun ProfileScreen (navController: NavController) {
 
     Column (modifier = Modifier.fillMaxSize()) {
 
@@ -119,8 +119,3 @@ fun ProfileScreen () {
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ShowProfileScreen () {
-    ProfileScreen()
-}

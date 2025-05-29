@@ -9,10 +9,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.example.wallpaperapp_kotlin" />
-                  <option name="mobileSdkAppId" value="1:918110293807:android:5f20e044dd3d0e0ae85bda" />
-                  <option name="projectId" value="wallpaperappkotlin-9e7bf" />
-                  <option name="projectNumber" value="918110293807" />
+                  <option name="appId" value="PLACEHOLDER" />
+                  <option name="mobileSdkAppId" value="" />
+                  <option name="projectId" value="" />
+                  <option name="projectNumber" value="" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

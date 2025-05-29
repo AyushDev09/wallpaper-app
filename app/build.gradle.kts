@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.gms.google-services")
+    kotlin("plugin.serialization") version "2.0.0"
 }
 
 android {
@@ -42,8 +42,12 @@ android {
 
 dependencies {
 
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.google.firebase.analytics)
+    implementation(platform(libs.bom))
+    implementation(libs.postgrest.kt)
+    implementation(libs.auth.kt)
+    implementation(libs.realtime.kt)
+
+    implementation(libs.ktor.client.android)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

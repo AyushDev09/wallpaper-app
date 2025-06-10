@@ -49,6 +49,11 @@ dependencies {
 
     implementation(libs.ktor.client.android)
 
+    implementation(libs.coil.compose)
+
+    implementation (libs.androidx.lifecycle.viewmodel.compose) // Provides viewModel() for Compose
+    implementation (libs.androidx.lifecycle.viewmodel.ktx) // For viewModelScope and coroutines
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

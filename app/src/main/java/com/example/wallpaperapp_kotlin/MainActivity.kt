@@ -35,7 +35,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             WallpaperApp_KotlinTheme {
                 //BottomNav()
-                TestList()
+                //TestList()
+                HomeScreen()
                 }
             }
         }

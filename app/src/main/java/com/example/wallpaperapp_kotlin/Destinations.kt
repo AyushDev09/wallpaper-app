@@ -33,34 +33,34 @@ object Profile:Destination {
 }
 
 
-@Composable
-fun homeScreen(list: List<Int>) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(5.dp),
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(list) { item ->
-            GridItem()
-        }
-    }
-}
-
-@Composable
-fun GridItem() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(1f) // Makes it a square
-            .background(Color.Gray)
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun showscreen(){
-    val sampleList = listOf(1,2,3,4,5,6,7,8,9,10)
-    homeScreen(list = sampleList)
-}
+//@Composable
+//fun homeScreen(list: List<Int>) {
+//    LazyVerticalGrid(
+//        columns = GridCells.Fixed(2),
+//        contentPadding = PaddingValues(5.dp),
+//        modifier = Modifier.fillMaxSize(),
+//        verticalArrangement = Arrangement.spacedBy(8.dp),
+//        horizontalArrangement = Arrangement.spacedBy(8.dp)
+//    ) {
+//        items(list) { item ->
+//            GridItem()
+//        }
+//    }
+//}
+//
+//@Composable
+//fun GridItem() {
+//    Box(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .aspectRatio(1f) // Makes it a square
+//            .background(Color.Gray)
+//    )
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun showscreen(){
+//    val sampleList = listOf(1,2,3,4,5,6,7,8,9,10)
+//    homeScreen(list = sampleList)
+//}

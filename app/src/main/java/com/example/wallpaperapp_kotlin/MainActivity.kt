@@ -34,9 +34,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WallpaperApp_KotlinTheme {
-                //BottomNav()
+                BottomNav()
                 //TestList()
-                HomeScreen()
+                //HomeScreen()
                 }
             }
         }

@@ -1,12 +1,14 @@
 package com.example.wallpaperapp_kotlin
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +17,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
@@ -34,6 +39,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -41,18 +49,17 @@ import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-
 @Composable
 fun HomeScreen (viewModel: WallpaperViewModel = viewModel()) {
 
     val wallpapers by viewModel.wallpapers
 
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+    LazyVerticalStaggeredGrid(
+        columns = StaggeredGridCells.Fixed(2),
         contentPadding = PaddingValues(5.dp),
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalItemSpacing = 12.dp
     ) {
         items(wallpapers) { wallpaper  ->
             GridItem(wallpaper)
@@ -65,7 +72,6 @@ fun GridItem(wallpaper: Wallpapers) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(1f)
             .clip(RoundedCornerShape(8.dp))
             .background(Color.LightGray)
     ) {
@@ -78,6 +84,30 @@ fun GridItem(wallpaper: Wallpapers) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun EmptyScreenWithTopAppBar() {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                modifier = Modifier
+                    .padding(0.dp)
+                    .height(80.dp),
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Black,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+                ),
+                title = { /* No title */ },
+                actions = {}
+            )
+        }
+    ) {
+        // No content inside Scaffold
+    }
+}
+
+
 @Composable
 fun BottomNav () {
     val navController = rememberNavController()
@@ -86,38 +116,29 @@ fun BottomNav () {
 
         bottomBar = {
             BottomAppBar(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(0.dp)
+                containerColor = Color.Black,
+                contentColor = Color.White,
+                modifier = Modifier.padding(0.dp).height(70.dp)
             ) {
                 Row ( modifier = Modifier.padding(10.dp).fillMaxWidth().fillMaxHeight(), horizontalArrangement = Arrangement.SpaceEvenly){
                     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
                         IconButton(onClick = {navController.navigate(Home.route)}, modifier = Modifier.height(38.dp)) {
                             Icon(imageVector = Icons.Filled.Home, contentDescription = "Home")
                         }
-                        Text(
-                            text = "Home",
-                            fontSize = 10.sp
-                        )
+
                     }
 
                     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
                         IconButton(onClick = {navController.navigate(Likes.route)},modifier = Modifier.height(38.dp)) {
                             Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Likes")
                         }
-                        Text(
-                            text = "Likes",
-                            fontSize = 10.sp
-                        )
+
                     }
                     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
                         IconButton(onClick = {navController.navigate(Profile.route)},modifier = Modifier.height(38.dp)) {
                             Icon(imageVector = Icons.Filled.Person, contentDescription = "Profile")
                         }
-                        Text(
-                            text = "Profile",
-                            fontSize = 10.sp
-                        )
+
                     }
                 }
             }
@@ -127,7 +148,9 @@ fun BottomNav () {
         NavHost(
             navController = navController,
             startDestination = Home.route,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
+            enterTransition = { EnterTransition.None},
+            exitTransition = { ExitTransition.None}
         ){
             composable(Home.route){
                 HomeScreen()
@@ -141,3 +164,4 @@ fun BottomNav () {
         }
     }
 }
+

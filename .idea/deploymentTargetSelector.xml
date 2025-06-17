@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-05-28T13:17:45.139000700Z">
+        <DropdownSelection timestamp="2025-06-12T10:59:51.989481300Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=RZ8R31Z01DY" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\ayush dev\.android\avd\ReactEmulator.avd" />
             </handle>
           </Target>
         </DropdownSelection>

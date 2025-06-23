@@ -1,6 +1,13 @@
 package com.example.wallpaperapp_kotlin
 
 import android.annotation.SuppressLint
+import android.content.ContentValues
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.os.Environment
+import android.provider.MediaStore
+import android.widget.Toast
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
@@ -59,8 +66,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import coil.compose.AsyncImage
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
@@ -86,6 +97,7 @@ fun HomeScreen (viewModel: WallpaperViewModel = viewModel()) {
 @Composable
 fun GridItem(wallpaper: Wallpapers) {
 
+    val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
     var showSheet by remember { mutableStateOf(false) }
@@ -122,7 +134,12 @@ fun GridItem(wallpaper: Wallpapers) {
                 Row (
                     modifier = Modifier.fillMaxWidth().padding(top = 10.dp))
                 {
-                    TextButton(onClick = {},
+                    TextButton(onClick = {
+                        coroutineScope.launch {
+                            DownloadImage(context, wallpaper.url)
+                            sheetState.hide()
+                            showSheet = false
+                        }},
                         modifier = Modifier.fillMaxWidth()) {
 
                         Row(
@@ -243,6 +260,40 @@ fun BottomNav () {
     }
 }
 
+
+suspend fun DownloadImage (context: Context, imageUrl: String) {
+
+    val loader = ImageLoader(context)
+    val request = ImageRequest.Builder(context).data(imageUrl).build()
+
+    val result = (loader.execute(request) as? SuccessResult)?.drawable
+    val bitmap = (result as BitmapDrawable).bitmap
+
+    val filename = "wallpaper_${System.currentTimeMillis()}.jpg"
+
+    val contentValues = ContentValues().apply {
+        put(MediaStore.Images.Media.DISPLAY_NAME, filename)
+        put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+        put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/Wallpapers")
+        put(MediaStore.Images.Media.IS_PENDING, 1)
+    }
+
+    val contentResolver = context.contentResolver
+    val imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+    imageUri?.let { uri ->
+        contentResolver.openOutputStream(uri)?.use { outputStream ->
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        }
+
+        contentValues.clear()
+        contentValues.put(MediaStore.Images.Media.IS_PENDING, 0)
+        contentResolver.update(uri, contentValues, null, null)
+
+        Toast.makeText(context, "Image downloaded", Toast.LENGTH_SHORT).show()
+    }
+
+}
 
 
 

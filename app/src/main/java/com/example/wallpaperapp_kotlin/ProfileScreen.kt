@@ -82,26 +82,6 @@ fun ProfileScreen (navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(text = "Notifications", fontSize = 18.sp)
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = "Arrow"
-                        )
-                    }
-                }
-            }
-
-            Row (
-                modifier = Modifier.fillMaxWidth().padding(top = 10.dp))
-            {
-                TextButton(onClick = {},
-                    modifier = Modifier.fillMaxWidth()) {
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
                         Text(text = "About app", fontSize = 18.sp)
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,

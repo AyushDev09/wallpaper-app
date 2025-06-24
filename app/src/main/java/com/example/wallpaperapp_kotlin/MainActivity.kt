@@ -19,11 +19,13 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
+import io.github.jan.supabase.auth.Auth
 
 val supabase = createSupabaseClient(
     supabaseUrl = "https://vjgdmxevzgpikalvjxlv.supabase.co",
     supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqZ2RteGV2emdwaWthbHZqeGx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg1MTgwNTksImV4cCI6MjA2NDA5NDA1OX0.nMBBpEAu5eG67bH2THRP-E2H49Hx8TPQ7aNZlvJQ_GQ"
 ) {
+    install(Auth)
     install(Postgrest)
 }
 
@@ -37,6 +39,7 @@ class MainActivity : ComponentActivity() {
                 BottomNav()
                 //TestList()
                 //HomeScreen()
+                //ScreenWithHalves()
                 }
             }
         }

@@ -1,5 +1,8 @@
 package com.example.wallpaperapp_kotlin
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,15 +22,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.jan.supabase.auth.auth
+import io.github.jan.supabase.auth.providers.builtin.Email
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoginUpper() {
@@ -51,6 +59,10 @@ fun LoginLower () {
     var userPassword by remember {
         mutableStateOf("")
     }
+
+    val scope = rememberCoroutineScope()
+
+    val context = LocalContext.current
 
     Column (
         modifier = Modifier.fillMaxSize().padding(10.dp).padding(horizontal = 10.dp)
@@ -98,11 +110,28 @@ fun LoginLower () {
         )
 
         Button(
-            onClick = {}, modifier = Modifier.fillMaxWidth().
+            onClick = {
+                scope.launch {
+                    signIn(userName,userPassword,context)
+                }
+            }, modifier = Modifier.fillMaxWidth().
             padding(top = 50.dp).height(50.dp),
             shape = RoundedCornerShape(10.dp)) {
             Text(text = "Continue")
         }
+    }
+}
+
+suspend fun signIn(email: String, password: String, context: Context) {
+    try {
+        val result = supabase.auth.signInWith(Email) {
+            this.email = email
+            this.password = password
+        }
+        Toast.makeText(context, "Login Success", Toast.LENGTH_SHORT).show()
+    } catch (e: Exception) {
+        Log.e("SignIn", "Login failed: ${e.localizedMessage}")
+        Toast.makeText(context, "Login Failed: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
     }
 }
 

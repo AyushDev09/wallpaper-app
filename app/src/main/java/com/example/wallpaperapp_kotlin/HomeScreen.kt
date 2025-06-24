@@ -44,10 +44,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
-import androidx.compose.material.icons.automirrored.filled.Article
-import androidx.compose.material.icons.automirrored.filled.Help
-import androidx.compose.material.icons.automirrored.filled.TrendingDown
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Favorite
@@ -114,29 +110,9 @@ fun GridItem(wallpaper: Wallpapers) {
                 Row (
                     modifier = Modifier.fillMaxWidth().padding(top = 10.dp))
                 {
-                    TextButton(onClick = {},
-                        modifier = Modifier.fillMaxWidth()) {
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(15.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.Favorite,
-                                contentDescription = "Arrow"
-                            )
-                            Text(text = "Add to likes", fontSize = 18.sp)
-                        }
-                    }
-                }
-
-                Row (
-                    modifier = Modifier.fillMaxWidth().padding(top = 10.dp))
-                {
                     TextButton(onClick = {
                         coroutineScope.launch {
-                            DownloadImage(context, wallpaper.url)
+                            downloadImage(context, wallpaper.url)
                             sheetState.hide()
                             showSheet = false
                         }},
@@ -217,20 +193,34 @@ fun BottomNav () {
             ) {
                 Row ( modifier = Modifier.padding(10.dp).fillMaxWidth().fillMaxHeight(), horizontalArrangement = Arrangement.SpaceEvenly){
                     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                        IconButton(onClick = {navController.navigate(Home.route)}, modifier = Modifier.height(38.dp)) {
+                        IconButton(onClick = {
+                            navController.navigate(Home.route) {
+                                popUpTo(navController.graph.startDestinationId)
+                                {
+                                saveState = true
+                            }
+                                launchSingleTop = true
+                                restoreState = true
+                            }},
+
+                            modifier = Modifier.height(38.dp)) {
                             Icon(imageVector = Icons.Filled.Home, contentDescription = "Home")
                         }
 
                     }
 
                     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                        IconButton(onClick = {navController.navigate(Likes.route)},modifier = Modifier.height(38.dp)) {
-                            Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Likes")
-                        }
+                        IconButton(onClick = {
+                            navController.navigate(Profile.route) {
+                                popUpTo(navController.graph.startDestinationId)
+                                {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }},
 
-                    }
-                    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                        IconButton(onClick = {navController.navigate(Profile.route)},modifier = Modifier.height(38.dp)) {
+                            modifier = Modifier.height(38.dp)) {
                             Icon(imageVector = Icons.Filled.Person, contentDescription = "Profile")
                         }
 
@@ -250,9 +240,6 @@ fun BottomNav () {
             composable(Home.route){
                 HomeScreen()
             }
-            composable(Likes.route){
-                LikesScreen(navController = navController)
-            }
             composable(Profile.route){
                 ProfileScreen(navController = navController)
             }
@@ -261,7 +248,7 @@ fun BottomNav () {
 }
 
 
-suspend fun DownloadImage (context: Context, imageUrl: String) {
+suspend fun downloadImage (context: Context, imageUrl: String) {
 
     val loader = ImageLoader(context)
     val request = ImageRequest.Builder(context).data(imageUrl).build()

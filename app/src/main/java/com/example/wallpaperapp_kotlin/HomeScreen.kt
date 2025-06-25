@@ -22,9 +22,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
@@ -46,9 +45,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -71,23 +70,60 @@ import coil.request.SuccessResult
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
+
 @Composable
-fun HomeScreen (viewModel: WallpaperViewModel = viewModel()) {
-
-    val wallpapers by viewModel.wallpapers
-
-    LazyVerticalStaggeredGrid(
-        columns = StaggeredGridCells.Fixed(2),
-        contentPadding = PaddingValues(5.dp),
-        modifier = Modifier.fillMaxSize(),
+fun CategoryChipsBar(
+    categories: List<String>,
+    selectedCategory: String,
+    onCategorySelected: (String) -> Unit
+) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalItemSpacing = 12.dp
+        contentPadding = PaddingValues(horizontal = 12.dp)
     ) {
-        items(wallpapers) { wallpaper  ->
-            GridItem(wallpaper)
+        items(categories) { category ->
+            FilterChip(
+                selected = selectedCategory == category,
+                onClick = { onCategorySelected(category) },
+                label = { Text(category) }
+            )
         }
     }
 }
+
+
+
+@Composable
+fun HomeScreen(viewModel: WallpaperViewModel = viewModel()) {
+    val wallpapers by viewModel.wallpapers
+    val selectedCategory = viewModel.selectedCategory
+
+    val categories = listOf("All","pixel", "anime", "game", "future")
+
+    Column {
+        CategoryChipsBar(
+            categories = categories,
+            selectedCategory = selectedCategory,
+            onCategorySelected = { viewModel.fetchWallpapers(it) }
+        )
+
+        LazyVerticalStaggeredGrid(
+            columns = StaggeredGridCells.Fixed(2),
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(5.dp),
+            verticalItemSpacing = 12.dp,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(wallpapers) { wallpaper ->
+                GridItem(wallpaper)
+            }
+        }
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

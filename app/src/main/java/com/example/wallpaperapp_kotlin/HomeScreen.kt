@@ -100,8 +100,9 @@ fun CategoryChipsBar(
 fun HomeScreen(viewModel: WallpaperViewModel = viewModel()) {
     val wallpapers by viewModel.wallpapers
     val selectedCategory = viewModel.selectedCategory
+    val isLoading = viewModel.isLoading
 
-    val categories = listOf("All","pixel", "anime", "game", "future")
+    val categories = listOf("All", "pixel", "anime", "game", "future")
 
     Column {
         CategoryChipsBar(
@@ -117,12 +118,20 @@ fun HomeScreen(viewModel: WallpaperViewModel = viewModel()) {
             verticalItemSpacing = 12.dp,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(wallpapers) { wallpaper ->
-                GridItem(wallpaper)
+            if (isLoading) {
+                items(10) {
+                    ShimmerGridItem()
+                }
+            } else {
+                // Show wallpapers once loaded
+                items(wallpapers) { wallpaper ->
+                    GridItem(wallpaper)
+                }
             }
         }
     }
 }
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -191,28 +200,6 @@ fun GridItem(wallpaper: Wallpapers) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Composable
-fun EmptyScreenWithTopAppBar() {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                modifier = Modifier
-                    .padding(0.dp)
-                    .height(80.dp),
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Black,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
-                title = { /* No title */ },
-                actions = {}
-            )
-        }
-    ) {
-        // No content inside Scaffold
-    }
-}
 
 
 @Composable

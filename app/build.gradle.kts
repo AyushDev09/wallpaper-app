@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.wallpaperapp_kotlin"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -48,6 +48,10 @@ dependencies {
     implementation(libs.realtime.kt)
     implementation(libs.gotrue.kt)
 
+    implementation(libs.compose.shimmer)
+
+
+
     implementation(libs.ktor.client.android)
 
     implementation(libs.coil.compose)
@@ -68,6 +72,7 @@ dependencies {
 
     implementation(libs.androidx.navigation.runtime.android)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.compose.material)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

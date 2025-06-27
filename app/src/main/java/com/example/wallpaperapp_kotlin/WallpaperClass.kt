@@ -31,12 +31,16 @@ class WallpaperViewModel : ViewModel() {
     var selectedCategory by mutableStateOf("All")
         private set
 
+    var isLoading by mutableStateOf(false)
+        private set
+
     init {
         fetchWallpapers()
     }
 
     fun fetchWallpapers(category: String = "All") {
         selectedCategory = category
+        isLoading = true
 
         viewModelScope.launch {
             try {
@@ -58,6 +62,8 @@ class WallpaperViewModel : ViewModel() {
                 _wallpapers.value = results
             } catch (e: Exception) {
                 Log.e("WallpaperViewModel", "Failed to fetch wallpapers", e)
+            } finally {
+                isLoading = false
             }
         }
     }

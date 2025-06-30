@@ -1,6 +1,5 @@
 package com.example.wallpaperapp_kotlin
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
@@ -28,47 +27,46 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import coil.compose.AsyncImage
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import coil.ImageLoader
+import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.request.SuccessResult
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import androidx.navigation.NavHostController
+
 
 
 @Composable
@@ -202,73 +200,170 @@ fun GridItem(wallpaper: Wallpapers) {
 
 
 
+//@Composable
+//fun BottomNav () {
+//    val navController = rememberNavController()
+//
+//    Scaffold (
+//
+//        bottomBar = {
+//            BottomAppBar(
+//                containerColor = Color.Black,
+//                contentColor = Color.White,
+//                modifier = Modifier.padding(0.dp).height(70.dp)
+//            ) {
+//                Row ( modifier = Modifier.padding(10.dp).fillMaxWidth().fillMaxHeight(), horizontalArrangement = Arrangement.SpaceEvenly){
+//                    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+//                        IconButton(onClick = {
+//                            navController.navigate(Home.route) {
+//                                popUpTo(navController.graph.startDestinationId)
+//                                {
+//                                saveState = true
+//                            }
+//                                launchSingleTop = true
+//                                restoreState = true
+//                            }},
+//
+//                            modifier = Modifier.height(38.dp)) {
+//                            Icon(imageVector = Icons.Filled.Home, contentDescription = "Home")
+//                        }
+//
+//                    }
+//
+//                    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+//                        IconButton(onClick = {
+//                            navController.navigate(Profile.route) {
+//                                popUpTo(navController.graph.startDestinationId)
+//                                {
+//                                    saveState = true
+//                                }
+//                                launchSingleTop = true
+//                                restoreState = true
+//                            }},
+//
+//                            modifier = Modifier.height(38.dp)) {
+//                            Icon(imageVector = Icons.Filled.Person, contentDescription = "Profile")
+//                        }
+//
+//                    }
+//                }
+//            }
+//        }
+//
+//    ) { innerPadding ->
+//        NavHost(
+//            navController = navController,
+//            startDestination = Login.route,
+//            modifier = Modifier.padding(innerPadding),
+//            enterTransition = { EnterTransition.None},
+//            exitTransition = { ExitTransition.None}
+//        ){
+//            composable(Home.route){
+//                BottomNav()
+//            }
+//            composable(Login.route){
+//                ScreenWithHalves(navController = navController)
+//            }
+//            composable(Profile.route){
+//                ProfileScreen(navController = navController)
+//            }
+//        }
+//    }
+//}
+
 @Composable
-fun BottomNav () {
-    val navController = rememberNavController()
+fun BottomNavBar(navController: NavHostController) {
+    val currentDestination = navController
+        .currentBackStackEntryAsState().value?.destination?.route
 
-    Scaffold (
-
-        bottomBar = {
-            BottomAppBar(
-                containerColor = Color.Black,
-                contentColor = Color.White,
-                modifier = Modifier.padding(0.dp).height(70.dp)
-            ) {
-                Row ( modifier = Modifier.padding(10.dp).fillMaxWidth().fillMaxHeight(), horizontalArrangement = Arrangement.SpaceEvenly){
-                    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                        IconButton(onClick = {
-                            navController.navigate(Home.route) {
-                                popUpTo(navController.graph.startDestinationId)
-                                {
-                                saveState = true
-                            }
-                                launchSingleTop = true
-                                restoreState = true
-                            }},
-
-                            modifier = Modifier.height(38.dp)) {
-                            Icon(imageVector = Icons.Filled.Home, contentDescription = "Home")
+    BottomAppBar(
+        containerColor = Color.Black,
+        contentColor = Color.White,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(70.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(
+                onClick = {
+                    if (currentDestination != Home.route) {
+                        navController.navigate(Home.route) {
+                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
                         }
-
-                    }
-
-                    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                        IconButton(onClick = {
-                            navController.navigate(Profile.route) {
-                                popUpTo(navController.graph.startDestinationId)
-                                {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
-                            }},
-
-                            modifier = Modifier.height(38.dp)) {
-                            Icon(imageVector = Icons.Filled.Person, contentDescription = "Profile")
-                        }
-
                     }
                 }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Home,
+                    contentDescription = "Home",
+                    tint = if (currentDestination == Home.route) Color.White else Color.Gray
+                )
             }
-        }
 
-    ) { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = Home.route,
-            modifier = Modifier.padding(innerPadding),
-            enterTransition = { EnterTransition.None},
-            exitTransition = { ExitTransition.None}
-        ){
-            composable(Home.route){
-                HomeScreen()
-            }
-            composable(Profile.route){
-                ProfileScreen(navController = navController)
+            IconButton(
+                onClick = {
+                    if (currentDestination != Profile.route) {
+                        navController.navigate(Profile.route) {
+                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "Profile",
+                    tint = if (currentDestination == Profile.route) Color.White else Color.Gray
+                )
             }
         }
     }
 }
+
+
+@Composable
+fun MainScreen() {
+    val navController = rememberNavController()
+
+    Scaffold(
+        bottomBar = {
+            // Only show bottom nav on certain screens
+            val showBottomBar = when (navController.currentBackStackEntryAsState().value?.destination?.route) {
+                Home.route, Profile.route -> true
+                else -> false
+            }
+            if (showBottomBar) {
+                BottomNavBar(navController = navController)
+            }
+        }
+    ) { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = Login.route,
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            composable(Login.route) {
+                ScreenWithHalves(navController)
+            }
+            composable(Home.route) {
+                HomeScreen()
+            }
+            composable(Profile.route) {
+                ProfileScreen(navController)
+            }
+        }
+    }
+}
+
 
 
 suspend fun downloadImage (context: Context, imageUrl: String) {

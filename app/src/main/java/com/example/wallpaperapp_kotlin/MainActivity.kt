@@ -4,22 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.ListItem
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
+import androidx.navigation.compose.rememberNavController
 import com.example.wallpaperapp_kotlin.ui.theme.WallpaperApp_KotlinTheme
+import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
-import io.github.jan.supabase.postgrest.from
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.Serializable
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
-import io.github.jan.supabase.auth.Auth
 
 val supabase = createSupabaseClient(
     supabaseUrl = "https://vjgdmxevzgpikalvjxlv.supabase.co",
@@ -35,35 +24,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController()
             WallpaperApp_KotlinTheme {
-                BottomNav()
-                //TestList()
-                //HomeScreen()
-                //ScreenWithHalves()
+                //BottomNav()
+                MainScreen()
                 }
             }
         }
     }
 
-@Serializable
-data class Note (
-    val id: Int,
-    val body: String
-)
-
-@Composable
-fun TestList() {
-    val notes = remember { mutableStateListOf<Note>()}
-    LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) {
-            val results = supabase.from("test").select().decodeList<Note>()
-            notes.addAll(results)
-        }
-    }
-
-    LazyColumn {
-        items(notes) {
-            note -> ListItem(headlineContent = { Text(text = note.body)})
-        }
-    }
-}

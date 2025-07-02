@@ -104,24 +104,17 @@ fun ProfileScreen (navController: NavController) {
 
 }
 
-// Function to handle logout
 suspend fun logout(navController: NavController, context: Context) {
     try {
+        supabase.auth.signOut()
 
-        val response = supabase.auth.signOut()
+        Toast.makeText(context, "Logged out successfully", Toast.LENGTH_SHORT).show()
 
-        // If logout successful, navigate to Login screen
-        if (response != null) {
-            Toast.makeText(context, "Logged out successfully", Toast.LENGTH_SHORT).show()
-            navController.navigate(Login.route) {
-                // Remove all previous screens from the backstack
-                popUpTo(Login.route) { inclusive = true }
-                launchSingleTop = true
-                restoreState = true
-            }
+        navController.navigate(Login.route) {
+            popUpTo(0) { inclusive = true }
         }
+
     } catch (e: Exception) {
-        // Handle any errors during logout
         Toast.makeText(context, "Error logging out: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
     }
 }

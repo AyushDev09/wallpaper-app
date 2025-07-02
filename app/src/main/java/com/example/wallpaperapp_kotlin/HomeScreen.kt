@@ -7,8 +7,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +14,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -66,7 +63,6 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import kotlinx.coroutines.launch
 import androidx.navigation.NavHostController
-
 
 
 @Composable
@@ -200,77 +196,6 @@ fun GridItem(wallpaper: Wallpapers) {
 
 
 
-//@Composable
-//fun BottomNav () {
-//    val navController = rememberNavController()
-//
-//    Scaffold (
-//
-//        bottomBar = {
-//            BottomAppBar(
-//                containerColor = Color.Black,
-//                contentColor = Color.White,
-//                modifier = Modifier.padding(0.dp).height(70.dp)
-//            ) {
-//                Row ( modifier = Modifier.padding(10.dp).fillMaxWidth().fillMaxHeight(), horizontalArrangement = Arrangement.SpaceEvenly){
-//                    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-//                        IconButton(onClick = {
-//                            navController.navigate(Home.route) {
-//                                popUpTo(navController.graph.startDestinationId)
-//                                {
-//                                saveState = true
-//                            }
-//                                launchSingleTop = true
-//                                restoreState = true
-//                            }},
-//
-//                            modifier = Modifier.height(38.dp)) {
-//                            Icon(imageVector = Icons.Filled.Home, contentDescription = "Home")
-//                        }
-//
-//                    }
-//
-//                    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-//                        IconButton(onClick = {
-//                            navController.navigate(Profile.route) {
-//                                popUpTo(navController.graph.startDestinationId)
-//                                {
-//                                    saveState = true
-//                                }
-//                                launchSingleTop = true
-//                                restoreState = true
-//                            }},
-//
-//                            modifier = Modifier.height(38.dp)) {
-//                            Icon(imageVector = Icons.Filled.Person, contentDescription = "Profile")
-//                        }
-//
-//                    }
-//                }
-//            }
-//        }
-//
-//    ) { innerPadding ->
-//        NavHost(
-//            navController = navController,
-//            startDestination = Login.route,
-//            modifier = Modifier.padding(innerPadding),
-//            enterTransition = { EnterTransition.None},
-//            exitTransition = { ExitTransition.None}
-//        ){
-//            composable(Home.route){
-//                BottomNav()
-//            }
-//            composable(Login.route){
-//                ScreenWithHalves(navController = navController)
-//            }
-//            composable(Profile.route){
-//                ProfileScreen(navController = navController)
-//            }
-//        }
-//    }
-//}
-
 @Composable
 fun BottomNavBar(navController: NavHostController) {
     val currentDestination = navController
@@ -336,13 +261,10 @@ fun MainScreen() {
 
     Scaffold(
         bottomBar = {
-            // Only show bottom nav on certain screens
-            val showBottomBar = when (navController.currentBackStackEntryAsState().value?.destination?.route) {
-                Home.route, Profile.route -> true
-                else -> false
-            }
+            val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+            val showBottomBar = currentRoute == Home.route || currentRoute == Profile.route
             if (showBottomBar) {
-                BottomNavBar(navController = navController)
+                BottomNavBar(navController)
             }
         }
     ) { innerPadding ->
@@ -363,7 +285,6 @@ fun MainScreen() {
         }
     }
 }
-
 
 
 suspend fun downloadImage (context: Context, imageUrl: String) {

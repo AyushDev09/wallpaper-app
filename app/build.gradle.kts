@@ -46,11 +46,9 @@ dependencies {
     implementation(libs.postgrest.kt)
     implementation(libs.auth.kt)
     implementation(libs.realtime.kt)
-    implementation(libs.gotrue.kt)
+    implementation(libs.gotruekt)
 
     implementation(libs.compose.shimmer)
-
-
 
     implementation(libs.ktor.client.android)
 

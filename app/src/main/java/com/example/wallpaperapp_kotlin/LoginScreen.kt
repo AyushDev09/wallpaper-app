@@ -6,11 +6,15 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -21,16 +25,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.wear.compose.material.CircularProgressIndicator
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.auth.providers.builtin.Email
 import kotlinx.coroutines.launch
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+
 
 
 
@@ -38,9 +49,9 @@ import kotlinx.coroutines.launch
 fun LoginUpper() {
     Column (){
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
+            painter = painterResource(id = R.drawable.loginbg4),
             contentDescription = "demo",
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp)
         )
     }
 }
@@ -61,19 +72,26 @@ fun LoginLower (navController: NavController) {
 
     val context = LocalContext.current
 
+    val scrollState = rememberScrollState()
+
+    val isFormValid = userName.isNotBlank() && userPassword.isNotBlank()
+
+    var isLoading by remember { mutableStateOf(false) }
+
     Column (
-        modifier = Modifier.fillMaxSize().padding(10.dp).padding(horizontal = 10.dp)
+        modifier = Modifier.fillMaxSize().padding(10.dp).padding(horizontal = 10.dp).verticalScroll(scrollState).imePadding()
 
     ){
         Text(text = "Pixel perfect wallpapers.",
             modifier = Modifier.fillMaxWidth().padding(vertical = 0.dp),
-            fontSize = 30.sp)
+            fontSize = 26.sp,
+            fontWeight = FontWeight.Bold)
 
         Text(text = "For android.",
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
                 .padding(vertical = 10.dp),
-            fontSize = 30.sp,
+            fontSize = 23.sp,
             )
 
         Text(text = "Username", fontSize = 12.sp,
@@ -103,18 +121,37 @@ fun LoginLower (navController: NavController) {
                 textAlign = TextAlign.Start,
                 fontSize = 18.sp
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            visualTransformation = PasswordVisualTransformation()
         )
 
         Button(
             onClick = {
                 scope.launch {
-                    signIn(userName,userPassword,context,navController)
+                    isLoading = true
+                    try {
+                        signIn(userName, userPassword, context, navController)
+                    } finally {
+                        isLoading = false
+                    }
                 }
-            }, modifier = Modifier.fillMaxWidth().
-            padding(top = 50.dp).height(50.dp),
-            shape = RoundedCornerShape(10.dp)) {
-            Text(text = "Continue")
+            },
+            enabled = !isLoading && isFormValid,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 30.dp)
+                .height(50.dp),
+            shape = RoundedCornerShape(10.dp)
+        ) {
+            if (isLoading) {
+                CircularProgressIndicator(
+                    color = Color.White,
+                    strokeWidth = 2.dp,
+                    modifier = Modifier.size(24.dp)
+                )
+            } else {
+                Text(text = "Continue")
+            }
         }
     }
 }

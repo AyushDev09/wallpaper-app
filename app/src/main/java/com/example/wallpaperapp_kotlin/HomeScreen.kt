@@ -29,8 +29,10 @@ import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
@@ -82,7 +84,13 @@ fun CategoryChipsBar(
             FilterChip(
                 selected = selectedCategory == category,
                 onClick = { onCategorySelected(category) },
-                label = { Text(category) }
+                label = { Text(category) },
+                colors = FilterChipDefaults.filterChipColors(
+                    containerColor = Color.DarkGray,
+                    labelColor = Color.White,
+                    selectedContainerColor = Color(0xFFFF0000),
+                    selectedLabelColor = Color.White
+                )
             )
         }
     }
@@ -155,6 +163,7 @@ fun GridItem(wallpaper: Wallpapers) {
                             sheetState.hide()
                             showSheet = false
                         }},
+                        colors = ButtonDefaults.textButtonColors(contentColor = Color.White),
                         modifier = Modifier.fillMaxWidth()) {
 
                         Row(
@@ -198,8 +207,7 @@ fun GridItem(wallpaper: Wallpapers) {
 
 @Composable
 fun BottomNavBar(navController: NavHostController) {
-    val currentDestination = navController
-        .currentBackStackEntryAsState().value?.destination?.route
+    val currentDestination = navController.currentBackStackEntryAsState().value?.destination?.route
 
     BottomAppBar(
         containerColor = Color.Black,
@@ -219,9 +227,8 @@ fun BottomNavBar(navController: NavHostController) {
                 onClick = {
                     if (currentDestination != Home.route) {
                         navController.navigate(Home.route) {
-                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            popUpTo(0) { inclusive = false }
                             launchSingleTop = true
-                            restoreState = true
                         }
                     }
                 }
@@ -237,9 +244,8 @@ fun BottomNavBar(navController: NavHostController) {
                 onClick = {
                     if (currentDestination != Profile.route) {
                         navController.navigate(Profile.route) {
-                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            popUpTo(0) { inclusive = false }
                             launchSingleTop = true
-                            restoreState = true
                         }
                     }
                 }
@@ -253,6 +259,7 @@ fun BottomNavBar(navController: NavHostController) {
         }
     }
 }
+
 
 
 @Composable

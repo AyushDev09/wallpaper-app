@@ -119,13 +119,6 @@ This app allows users to:
 
 
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
----
-
-
-
 ## Contact
 
 Email: ayushdev9090@gmail.com

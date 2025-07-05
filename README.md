@@ -69,7 +69,8 @@ This app allows users to:
 
    ```bash
    plugin {
-    kotlin("plugin.serialization") version "2.0.0"}
+    kotlin("plugin.serialization") version "2.0.0"
+   }
    ```
    
     ```bash
@@ -112,3 +113,19 @@ This app allows users to:
 - Tap on a wallpaper to view and download it.
 - Log out of the app when done.
 
+
+
+---
+
+
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+---
+
+
+
+## Contact
+
+Email: ayushdev9090@gmail.com

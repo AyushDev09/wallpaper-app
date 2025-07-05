@@ -1,15 +1,23 @@
-# wallpaper-app
+# Wallpaper-app
 
 WallpaperApp is an Android application built using Kotlin, which allows users to browse and download high-quality wallpapers. The app offers a smooth and intuitive user experience with a login page, categories for wallpapers, and fast downloading with a simple click. It uses Supabase for authentication and wallpaper storage.
 
+
+
 ---
+
+
 
 ## Login credentials
 
 - Username: ayush@gmail.com
 - Password: ayush@gmail.com
 
+
+
 ---
+
+
 
 ## 🚀 Features
 
@@ -22,7 +30,11 @@ This app allows users to:
 - **Logout:** Easily log out of the app when done.
 - **Shimmer Effect:** UI includes a shimmer effect for loading content.
 
+
+
 ---
+
+
 
 ## 🎯 Technologies
 
@@ -34,7 +46,11 @@ This app allows users to:
 - **Coil:** Image loading library for displaying wallpapers.
 - **Gradle:** Build system for the project.
 
+
+
 ---
+
+
 
 ## 🛠️ Installation
 
@@ -82,7 +98,11 @@ This app allows users to:
 
 5. **Build and run the app (Physical device or emulator)**
 
+
+
 ---
+
+
 
 ## ⚙️ Usage
 

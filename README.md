@@ -70,7 +70,8 @@ This app allows users to:
    ```bash
    plugin {
     kotlin("plugin.serialization") version "2.0.0"}
-
+   ```
+   
     ```bash
    dependencies {
      implementation(platform(libs.bom))

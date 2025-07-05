@@ -4,6 +4,13 @@ WallpaperApp is an Android application built using Kotlin, which allows users to
 
 ---
 
+## Login credentials
+
+- Username: ayush@gmail.com
+- Password: ayush@gmail.com
+
+---
+
 ## 🚀 Features
 
 This app allows users to:
@@ -54,16 +61,16 @@ This app allows users to:
      implementation(libs.postgrest.kt) // Interacting with the PostgREST API
      implementation(libs.auth.kt) // Handle authentication functionality
      implementation(libs.realtime.kt) // Real-time features
-     implementation(libs.gotruekt) // Supabase for user authentication
+     implementation(libs.gotruekt) // Supabase user authentication
    
-     implementation(libs.compose.shimmer) // Shimmer effect for Compose UI
+     implementation(libs.compose.shimmer) // Shimmer effect in Compose UI
    
      implementation(libs.ktor.client.android) // Asynchronous HTTP client
    
-     implementation(libs.coil.compose) // Image loading for Android
+     implementation(libs.coil.compose) // Image loading 
    
-     implementation(libs.androidx.lifecycle.viewmodel.compose) // ViewModel for Compose
-     implementation(libs.androidx.lifecycle.viewmodel.ktx) // For ViewModelScope and coroutines
+     implementation(libs.androidx.lifecycle.viewmodel.compose) // ViewModel in Compose
+     implementation(libs.androidx.lifecycle.viewmodel.ktx) // ViewModelScope and coroutines
    }
 
 4. **Configure Supabase**
@@ -73,7 +80,7 @@ This app allows users to:
    supabase_api_key=<your_supabase_api_key>
 
 
-5. **Build and run the app (Physical or emulator)**
+5. **Build and run the app (Physical device or emulator)**
 
 ---
 

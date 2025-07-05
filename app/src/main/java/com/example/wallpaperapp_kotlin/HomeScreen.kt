@@ -104,7 +104,7 @@ fun HomeScreen(viewModel: WallpaperViewModel = viewModel()) {
     val selectedCategory = viewModel.selectedCategory
     val isLoading = viewModel.isLoading
 
-    val categories = listOf("All", "pixel", "anime", "game", "future")
+    val categories = listOf("All", "anime", "future", "game", "pixel")
 
     Column {
         CategoryChipsBar(

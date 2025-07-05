@@ -46,11 +46,11 @@ class WallpaperViewModel : ViewModel() {
             try {
                 val results = withContext(Dispatchers.IO) {
                     if (category == "All") {
-                        supabase.from("wallpapertable")
+                        supabase.from("wallpaperschema")
                             .select()
                             .decodeList<Wallpapers>()
                     } else {
-                        supabase.from("wallpapertable")
+                        supabase.from("wallpaperschema")
                             .select {
                                 filter {
                                     eq("category", category)

@@ -8,6 +8,18 @@ WallpaperApp is an Android application built using Kotlin, which allows users to
 
 
 
+## 📥 Download
+
+Don't want to build the project yourself?  
+You can download the latest APK directly from the [Releases page](https://github.com/AyushDev09/wallpaper-app/releases/tag/v1.0.0).
+
+📱 [Download APK](https://github.com/AyushDev09/wallpaper-app/releases/download/v1.0.0/app-debug.apk)
+
+
+
+---
+
+
 ## Login credentials (Internet required)
 
 - Username: ayush@gmail.com

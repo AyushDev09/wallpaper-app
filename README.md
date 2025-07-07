@@ -8,7 +8,7 @@ WallpaperApp is an Android application built using Kotlin, which allows users to
 
 
 
-## Login credentials
+## Login credentials (Internet required)
 
 - Username: ayush@gmail.com
 - Password: ayush@gmail.com

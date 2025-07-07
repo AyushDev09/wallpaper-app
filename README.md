@@ -91,7 +91,7 @@ This app allows users to:
      implementation(libs.androidx.lifecycle.viewmodel.ktx) // ViewModelScope and coroutines
    }
 
-4. **Configure Supabase**
+4. **Configure Supabase (local.properties)**
 
    ```bash
    supabase_url=<your_supabase_project_url>

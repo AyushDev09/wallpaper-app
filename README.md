@@ -103,12 +103,11 @@ This app allows users to:
      implementation(libs.androidx.lifecycle.viewmodel.ktx) // ViewModelScope and coroutines
    }
 
-4. **Configure Supabase (local.properties)**
+4. **Copy local.properties.sample to your local.properties**
 
-   ```bash
-   supabase_url=<your_supabase_project_url>
-   supabase_api_key=<your_supabase_api_key>
+   
 
+---
 
 5. **Build and run the app (Physical device or emulator)**
 

@@ -103,6 +103,8 @@ This app allows users to:
      implementation(libs.androidx.lifecycle.viewmodel.ktx) // ViewModelScope and coroutines
    }
 
+---
+
 4. **Copy local.properties.sample to your local.properties**
 
    

@@ -8,7 +8,19 @@ WallpaperApp is an Android application built using Kotlin, which allows users to
 
 
 
-## Login credentials
+## 📥 Download
+
+Don't want to build the project yourself?  
+You can download the latest APK directly from the [Releases page](https://github.com/AyushDev09/wallpaper-app/releases/tag/v1.0.0).
+
+📱 [Download APK](https://github.com/AyushDev09/wallpaper-app/releases/download/v1.0.0/app-debug.apk)
+
+
+
+---
+
+
+## Login credentials (Internet required)
 
 - Username: ayush@gmail.com
 - Password: ayush@gmail.com
@@ -91,7 +103,7 @@ This app allows users to:
      implementation(libs.androidx.lifecycle.viewmodel.ktx) // ViewModelScope and coroutines
    }
 
-4. **Configure Supabase**
+4. **Configure Supabase (local.properties)**
 
    ```bash
    supabase_url=<your_supabase_project_url>

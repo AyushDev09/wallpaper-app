@@ -1,6 +1,8 @@
 package com.example.wallpaperapp_kotlin
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -106,7 +108,11 @@ fun ProfileScreen(navController: NavController) {
 
             Row(modifier = Modifier.fillMaxWidth().padding(top = 10.dp)) {
                 TextButton(
-                    onClick = { /* Show About Dialog or Screen */ },
+                    onClick = {
+
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/AyushDev09/wallpaper-app/blob/main/README.md"))
+                        context.startActivity(intent)
+                    },
                     colors = ButtonDefaults.textButtonColors(contentColor = Color.White),
                     modifier = Modifier.fillMaxWidth()
                 ) {

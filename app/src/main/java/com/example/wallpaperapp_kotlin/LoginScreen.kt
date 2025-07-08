@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,7 +34,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.wear.compose.material.CircularProgressIndicator
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.auth.providers.builtin.Email
 import kotlinx.coroutines.launch
@@ -84,6 +82,7 @@ fun LoginLower (navController: NavController) {
     ){
         Text(text = "Pixel perfect wallpapers.",
             modifier = Modifier.fillMaxWidth().padding(vertical = 0.dp),
+            textAlign = TextAlign.Center,
             fontSize = 26.sp,
             fontWeight = FontWeight.Bold)
 

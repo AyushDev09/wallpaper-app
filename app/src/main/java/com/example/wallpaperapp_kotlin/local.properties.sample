@@ -1,0 +1,5 @@
+
+copy paste this in local.properties
+
+SUPABASE_URL=https://qmwewkcgcfbnkghwjpax.supabase.co
+SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFtd2V3a2NnY2ZibmtnaHdqcGF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3MTYzNDQsImV4cCI6MjA2NzI5MjM0NH0.GlRHh3qxNsW5lSXUu6_K4YRntRaWxRLOfXVZMOaeYJ4
